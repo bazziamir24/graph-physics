@@ -156,6 +156,10 @@ def meshdata_to_graph(
     # Get tetrahedras and triangles from cells
     tetra = None
     cells = cells.T
+    
+    if isinstance(cells, np.ndarray):  # just to be safe
+        cells = torch.as_tensor(cells)
+
     if cells.shape[0] == 4:
         tetra = cells
         face = torch.cat(

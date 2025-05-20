@@ -86,7 +86,7 @@ def main(argv):
         param=parameters,
         device=device,
         use_edge_feature=use_edge_feature,
-        extra_node_features=build_features,
+        extra_node_features=None,
     )
 
     # Get training and validation datasets

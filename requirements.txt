@@ -1,0 +1,25 @@
+# Core dependencies
+torch==2.4.0
+torch-sparse
+torch-cluster
+torch-spline-conv
+torch-geometric
+
+# Utility libraries
+loguru==0.7.2
+autoflake==2.3.0
+pytest==8.0.1
+meshio==5.3.5
+h5py==3.10.0
+
+# Visualization and logging
+pyvista
+panel
+wandb
+wandb[media]  # optional media dependencies for wandb
+lightning==2.5.0
+pytorch-lightning==2.5.0
+torchmetrics==1.6.3
+
+# DGL (may require manual installation depending on system)
+dgl
