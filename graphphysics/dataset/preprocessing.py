@@ -34,15 +34,16 @@ def _3d_face_to_edge(graph: Data) -> Data:
         Data: The graph with updated faces.
     """
     face = graph.face
-    graph.face = torch.cat(
-        [
-            face[0:3],
-            face[1:4],
-            torch.stack([face[2], face[3], face[0]], dim=0),
-            torch.stack([face[3], face[0], face[1]], dim=0),
-        ],
-        dim=1,
-    )
+    if hasattr(graph, "face") and face.shape[0] == 4:
+        graph.face = torch.cat(
+            [
+                face[0:3],
+                face[1:4],
+                torch.stack([face[2], face[3], face[0]], dim=0),
+                torch.stack([face[3], face[0], face[1]], dim=0),
+            ],
+            dim=1,
+        )
     return graph
 
 
@@ -116,7 +117,7 @@ def add_world_edges(
         return torch.Tensor(pairs.T).long()
 
     world_pos = graph.x[:, world_pos_index_start:world_pos_index_end]
-    added_edges = _close_pairs_ckdtree(world_pos, radius)
+    added_edges = _close_pairs_ckdtree(world_pos, radius).to(graph.x.device)
 
     type = graph.x[:, node_type_index]
 
