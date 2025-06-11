@@ -78,11 +78,13 @@ class H5Dataset(BaseDataset):
             file_handle=self.file_handle, traj_number=traj_number, meta=self.meta
         )
 
-        # Get the graph for the specified frame
-        graph = get_frame_as_graph(
-            traj=traj, frame=frame, meta=self.meta, frame_target=frame + 1
-        )
+        frame_target = frame + 1
+        if frame_target >= len(traj):
+            frame_target = frame
 
+        graph = get_frame_as_graph(
+            traj=traj, frame=frame, meta=self.meta, frame_target=frame_target
+        )
         if self.use_previous_data:
             previous_graph = get_frame_as_graph(
                 traj=traj, frame=frame - 1, meta=self.meta, frame_target=None
